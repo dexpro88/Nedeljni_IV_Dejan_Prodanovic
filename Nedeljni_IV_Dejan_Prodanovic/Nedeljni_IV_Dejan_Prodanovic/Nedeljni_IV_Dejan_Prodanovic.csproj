@@ -90,6 +90,7 @@
     <Compile Include="Validation\EncryptionHelper.cs" />
     <Compile Include="Validation\ValidationClass.cs" />
     <Compile Include="ViewModelBase\FriendRequestsViewModel.cs" />
+    <Compile Include="ViewModelBase\FriendsViewModel.cs" />
     <Compile Include="ViewModelBase\LoginViewModel.cs" />
     <Compile Include="ViewModelBase\RegisterViewModel.cs" />
     <Compile Include="ViewModelBase\UserMainViewModel.cs" />
@@ -97,6 +98,9 @@
     <Compile Include="ViewModelBase\ViewModelBase.cs" />
     <Compile Include="View\FriendRequests.xaml.cs">
       <DependentUpon>FriendRequests.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Friends.xaml.cs">
+      <DependentUpon>Friends.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
@@ -124,6 +128,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\FriendRequests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Friends.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

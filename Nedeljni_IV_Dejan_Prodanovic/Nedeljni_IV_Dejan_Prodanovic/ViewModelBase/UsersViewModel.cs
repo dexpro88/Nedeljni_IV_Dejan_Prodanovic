@@ -25,6 +25,7 @@ namespace Nedeljni_IV_Dejan_Prodanovic.ViewModelBase
 
             var listOfUsers = userService.GetUsers().Where(u => u.UserID != User.UserID).ToList();
             UserList = new List<tblUser>();
+            SelectedUser = listOfUsers.FirstOrDefault();
 
             using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
             {

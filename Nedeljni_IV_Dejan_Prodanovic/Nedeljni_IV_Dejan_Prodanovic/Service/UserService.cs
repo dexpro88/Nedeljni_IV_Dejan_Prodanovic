@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Nedeljni_IV_Dejan_Prodanovic.Model;
 
 namespace Nedeljni_IV_Dejan_Prodanovic.Service
@@ -47,7 +48,7 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Service
             {
                 using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
                 {
-
+                    
                     tblUser sendUserInDb = (from u in context.tblUsers
                                           where u.UserID == sendUser.UserID
                                           select u).First();
@@ -59,7 +60,7 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Service
                     recieveUserInDb.tblUsers.Add(sendUserInDb);
                     //recieveUserInDb.tblUsers.Add(sendUserInDb);
 
-
+                   
                     context.SaveChanges();
 
 
@@ -129,6 +130,111 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Service
                     list = (from x in context.tblUsers select x).ToList();
 
                      
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
+
+        public void RefuseRequest(tblUser sendUser, tblUser recieveUser)
+        {
+            try
+            {
+                using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
+                {
+
+                    tblUser sendUserInDb = (from u in context.tblUsers
+                                            where u.UserID == sendUser.UserID
+                                            select u).First();
+
+                    tblUser recieveUserInDb = (from u in context.tblUsers
+                                               where u.UserID == recieveUser.UserID
+                                               select u).First();
+
+                    recieveUserInDb.tblUsers.Remove(sendUserInDb);
+                    
+
+
+                    context.SaveChanges();
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+
+            }
+        }
+
+        public void AcceptRequest(tblUser sendUser, tblUser recieveUser)
+        {
+            try
+            {
+               
+                
+                using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
+                {
+
+                    tblUser sendUserInDb = (from u in context.tblUsers
+                                            where u.UserID == sendUser.UserID
+                                            select u).First();
+
+                    tblUser recieveUserInDb = (from u in context.tblUsers
+                                               where u.UserID == recieveUser.UserID
+                                               select u).First();
+                  
+                
+                    recieveUserInDb.tblUsers.Remove(sendUserInDb);
+
+                    context.SaveChanges();
+               
+
+
+                }
+
+                using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
+                {
+                    tblUser sendUserInDb = (from u in context.tblUsers
+                                            where u.UserID == sendUser.UserID
+                                            select u).First();
+
+                    tblUser recieveUserInDb = (from u in context.tblUsers
+                                               where u.UserID == recieveUser.UserID
+                                               select u).First();
+                    recieveUserInDb.tblUsers1.Add(sendUserInDb);
+                    sendUserInDb.tblUsers1.Add(recieveUserInDb);
+
+                    context.SaveChanges();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+
+            }
+        }
+
+        public List<tblUser> GetFriends(tblUser user)
+        {
+             try
+            {
+                using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
+                {
+                    tblUser userInDb = (from x in context.tblUsers
+                                    where x.UserID == user.UserID
+                                    select x).First();
+
+                    List<tblUser> list = new List<tblUser>();
+                  
+                    list = userInDb.tblUsers1.ToList();
+                   
                     return list;
                 }
             }

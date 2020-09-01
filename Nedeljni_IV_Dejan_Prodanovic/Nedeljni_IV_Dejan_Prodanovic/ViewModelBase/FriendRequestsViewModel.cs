@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -27,16 +28,11 @@ namespace Nedeljni_IV_Dejan_Prodanovic.ViewModelBase
            
 
             using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
-            {
-                 
+            {               
                     tblUser userInDb = (from x in context.tblUsers
                                         where x.UserID == User.UserID
                                         select x).First();
-
                 UserList = userInDb.tblUsers.ToList();
-
-
-
             }
 
             SelectedUser = UserList.FirstOrDefault();
@@ -114,51 +110,91 @@ namespace Nedeljni_IV_Dejan_Prodanovic.ViewModelBase
         }
 
 
-        private ICommand sendRequest;
-        public ICommand SendRequest
+        private ICommand accept;
+        public ICommand Accept
         {
             get
             {
-                if (sendRequest == null)
+                if (accept == null)
                 {
-                    sendRequest = new RelayCommand(param => SendRequestExecute(),
-                        param => CanSendRequestExecute());
+                    accept = new RelayCommand(param => AcceptExecute(),
+                        param => CanAcceptExecute());
                 }
-                return sendRequest;
+                return accept;
             }
         }
 
-        private void SendRequestExecute()
+        private void AcceptExecute()
         {
             try
             {
-                //MessageBox.Show("Poslao");
-                //userService.SendRequest(User, SelectedUser);
+                userService.AcceptRequest(SelectedUser, User);
+                string friend = SelectedUser.Username;
+
+                using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
+                {
+                    tblUser userInDb = (from x in context.tblUsers
+                                        where x.UserID == User.UserID
+                                        select x).First();
+                    UserList = userInDb.tblUsers.ToList();
+                }
+                Thread.Sleep(1000);
+                string str = string.Format("You are now friend with {0} .", friend);
+                MessageBox.Show(str);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
         }
-        private bool CanSendRequestExecute()
+        private bool CanAcceptExecute()
         {
-            using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
+          
+
+            return true;
+        }
+
+        private ICommand refuse;
+        public ICommand Refuse
+        {
+            get
             {
-                if (SelectedUser != null)
+                if (refuse == null)
+                {
+                    refuse = new RelayCommand(param => RefuseExecute(),
+                        param => CanRefuseExecute());
+                }
+                return refuse;
+            }
+        }
+
+        private void RefuseExecute()
+        {
+            try
+            {
+                userService.RefuseRequest(SelectedUser,User);
+                string friend = SelectedUser.Username;
+
+                using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
                 {
                     tblUser userInDb = (from x in context.tblUsers
                                         where x.UserID == User.UserID
                                         select x).First();
-
-                    var list = userInDb.tblUsers.Select(item => item.UserID).ToList();
-
-                    if (list.Contains(SelectedUser.UserID))
-                    {
-                        return false;
-                    }
+                    UserList = userInDb.tblUsers.ToList();
                 }
 
+                Thread.Sleep(1000);
+                string str = string.Format("You refused friend request from {0} .", friend);
+                MessageBox.Show(str);
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private bool CanRefuseExecute()
+        {
+
 
             return true;
         }

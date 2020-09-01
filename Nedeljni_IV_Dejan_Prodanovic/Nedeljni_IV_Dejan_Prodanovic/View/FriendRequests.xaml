@@ -71,7 +71,7 @@
                         <DataTemplate>
                             <Button Width="100"
                                     Height="20"
-                                    Command="{Binding Path=DataContext.SendRequest, RelativeSource= {RelativeSource FindAncestor,
+                                    Command="{Binding Path=DataContext.Accept, RelativeSource= {RelativeSource FindAncestor,
                                        AncestorType={x:Type DataGrid}},UpdateSourceTrigger=PropertyChanged}"
                                     Content="Accept" />
                         </DataTemplate>
@@ -82,7 +82,7 @@
                         <DataTemplate>
                             <Button Width="100"
                                     Height="20"
-                                    Command="{Binding Path=DataContext.SendRequest, RelativeSource= {RelativeSource FindAncestor,
+                                    Command="{Binding Path=DataContext.Refuse, RelativeSource= {RelativeSource FindAncestor,
                                        AncestorType={x:Type DataGrid}},UpdateSourceTrigger=PropertyChanged}"
                                     Content="Refuse" />
                         </DataTemplate>

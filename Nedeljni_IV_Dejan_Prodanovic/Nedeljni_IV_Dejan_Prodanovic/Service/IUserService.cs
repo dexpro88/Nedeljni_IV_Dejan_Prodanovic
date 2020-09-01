@@ -10,11 +10,14 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Service
     interface IUserService
     {
         List<tblUser> GetUsers();
+        List<tblUser> GetFriends(tblUser user);
         tblUser AddUser(tblUser user);
         tblUser GetUserByUserNameAndPassword(string username, string password);
         tblUser GetUserByUserName(string username);
         //tblUser GetUserByJMBG(string JMBG);
         //void DeleteUser(int UserId);
         void SendRequest(tblUser sendUser, tblUser recieveUser);
+        void RefuseRequest(tblUser sendUser, tblUser recieveUser);
+        void AcceptRequest(tblUser sendUser, tblUser recieveUser);
     }
 }
