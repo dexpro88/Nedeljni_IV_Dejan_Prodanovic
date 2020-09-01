@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f39aaf12838f436ba6ea085072d0df72" Name="Diagram1">
+        <EntityTypeShape EntityType="MySocialNetworkModel.tblPost" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MySocialNetworkModel.tblUser" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="MySocialNetworkModel.FK__tblPost__UserID__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="MySocialNetworkModel.tblFriendRequests" ManuallyRouted="false" />
+        <AssociationConnector Association="MySocialNetworkModel.tblFriends" ManuallyRouted="false" />
+        <AssociationConnector Association="MySocialNetworkModel.tblLikedPosts" ManuallyRouted="false" />
+        <AssociationConnector Association="MySocialNetworkModel.tblUserPosts" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
