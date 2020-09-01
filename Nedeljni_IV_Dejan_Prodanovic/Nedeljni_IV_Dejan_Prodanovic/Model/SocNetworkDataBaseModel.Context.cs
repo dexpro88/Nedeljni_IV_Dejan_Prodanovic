@@ -13,10 +13,10 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MySocialNetworkEntities : DbContext
+    public partial class SocialNetworkDbEntities : DbContext
     {
-        public MySocialNetworkEntities()
-            : base("name=MySocialNetworkEntities")
+        public SocialNetworkDbEntities()
+            : base("name=SocialNetworkDbEntities")
         {
         }
     

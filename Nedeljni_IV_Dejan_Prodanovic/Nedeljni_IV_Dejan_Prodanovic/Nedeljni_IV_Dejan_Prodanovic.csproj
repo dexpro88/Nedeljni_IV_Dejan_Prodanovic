@@ -64,20 +64,47 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\SocialNetworkDataModel.Context.cs">
+    <Compile Include="Model\SocNetworkDataBaseModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SocialNetworkDataModel.Context.tt</DependentUpon>
+      <DependentUpon>SocNetworkDataBaseModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\SocialNetworkDataModel.Designer.cs">
+    <Compile Include="Model\SocNetworkDataBaseModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SocialNetworkDataModel.edmx</DependentUpon>
+      <DependentUpon>SocNetworkDataBaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\SocNetworkDataBaseModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SocNetworkDataBaseModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\tblPost.cs">
+      <DependentUpon>SocNetworkDataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\tblUser.cs">
+      <DependentUpon>SocNetworkDataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service\IUserService.cs" />
+    <Compile Include="Service\UserService.cs" />
+    <Compile Include="Validation\EncryptionHelper.cs" />
+    <Compile Include="Validation\ValidationClass.cs" />
     <Compile Include="ViewModelBase\LoginViewModel.cs" />
+    <Compile Include="ViewModelBase\RegisterViewModel.cs" />
+    <Compile Include="ViewModelBase\UserMainViewModel.cs" />
+    <Compile Include="ViewModelBase\UsersViewModel.cs" />
     <Compile Include="ViewModelBase\ViewModelBase.cs" />
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Register.xaml.cs">
+      <DependentUpon>Register.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserMain.xaml.cs">
+      <DependentUpon>UserMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Users.xaml.cs">
+      <DependentUpon>Users.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -93,6 +120,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Register.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Users.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -115,12 +154,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Model\SocialNetworkDataModel.edmx">
+    <EntityDeploy Include="Model\SocNetworkDataBaseModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SocialNetworkDataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>SocNetworkDataBaseModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Model\SocialNetworkDataModel.edmx.diagram">
-      <DependentUpon>SocialNetworkDataModel.edmx</DependentUpon>
+    <None Include="Model\SocNetworkDataBaseModel.edmx.diagram">
+      <DependentUpon>SocNetworkDataBaseModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -131,15 +170,20 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <Content Include="Model\SocialNetworkDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SocialNetworkDataModel.Context.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\SocNetworkDataBaseModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SocNetworkDataBaseModel.edmx</DependentUpon>
+      <LastGenOutput>SocNetworkDataBaseModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\SocNetworkDataBaseModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SocNetworkDataBaseModel.edmx</DependentUpon>
+      <LastGenOutput>SocNetworkDataBaseModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

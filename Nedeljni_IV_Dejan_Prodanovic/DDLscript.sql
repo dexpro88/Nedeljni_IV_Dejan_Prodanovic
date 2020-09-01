@@ -1,9 +1,9 @@
 --we create database  
-CREATE DATABASE MySocialNetwork;
+CREATE DATABASE SocialNetworkDb;
 
 GO
 
-use MySocialNetwork;
+use SocialNetworkDb;
 
 GO
 
@@ -22,6 +22,7 @@ DROP TABLE IF EXISTS tblUserPosts;
     FirstName varchar(50),
 	LastName varchar(50),
 	Gender varchar(50),
+	DateOfBirth date,
 	Location varchar(50),
     Email varchar(50),
 	Username varchar(50),
@@ -52,13 +53,6 @@ CREATE TABLE tblFriends (
 	);
 
 CREATE TABLE tblLikedPosts (
-   
-	UserId int FOREIGN KEY REFERENCES tblUser(UserID),
-	PostId int FOREIGN KEY REFERENCES tblPost(PostID)  ,
-	primary key(UserId,PostId)
-	);
-
-CREATE TABLE tblUserPosts (
    
 	UserId int FOREIGN KEY REFERENCES tblUser(UserID),
 	PostId int FOREIGN KEY REFERENCES tblPost(PostID)  ,

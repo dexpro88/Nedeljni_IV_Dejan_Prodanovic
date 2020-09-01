@@ -23,13 +23,13 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Model
             this.tblUser11 = new HashSet<tblUser>();
             this.tblUsers1 = new HashSet<tblUser>();
             this.tblPosts1 = new HashSet<tblPost>();
-            this.tblPosts2 = new HashSet<tblPost>();
         }
     
         public int UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
+        public Nullable<System.DateTime> DateOfBirth { get; set; }
         public string Location { get; set; }
         public string Email { get; set; }
         public string Username { get; set; }
@@ -47,7 +47,5 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Model
         public virtual ICollection<tblUser> tblUsers1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPost> tblPosts1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblPost> tblPosts2 { get; set; }
     }
 }

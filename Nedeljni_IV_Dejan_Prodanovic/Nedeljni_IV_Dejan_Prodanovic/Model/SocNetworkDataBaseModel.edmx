@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MySocialNetworkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SocialNetworkDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblFriendRequests">
           <Key>
             <PropertyRef Name="SendUserId" />
@@ -47,18 +47,11 @@
           <Property Name="FirstName" Type="varchar" MaxLength="50" />
           <Property Name="LastName" Type="varchar" MaxLength="50" />
           <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="date" />
           <Property Name="Location" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Username" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="tblUserPosts">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="PostId" />
-          </Key>
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="PostId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__tblFriend__First__403A8C7D">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
@@ -144,37 +137,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblUserPo__PostI__48CFD27E">
-          <End Role="tblPost" Type="Self.tblPost" Multiplicity="1" />
-          <End Role="tblUserPosts" Type="Self.tblUserPosts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblPost">
-              <PropertyRef Name="PostID" />
-            </Principal>
-            <Dependent Role="tblUserPosts">
-              <PropertyRef Name="PostId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblUserPo__UserI__47DBAE45">
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
-          <End Role="tblUserPosts" Type="Self.tblUserPosts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="tblUserPosts">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="MySocialNetworkModelStoreContainer">
+        <EntityContainer Name="SocialNetworkDbModelStoreContainer">
           <EntitySet Name="tblFriendRequests" EntityType="Self.tblFriendRequests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFriends" EntityType="Self.tblFriends" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblLikedPosts" EntityType="Self.tblLikedPosts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblPost" EntityType="Self.tblPost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblUserPosts" EntityType="Self.tblUserPosts" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__tblFriend__First__403A8C7D" Association="Self.FK__tblFriend__First__403A8C7D">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblFriends" EntitySet="tblFriends" />
@@ -203,20 +171,12 @@
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblPost" EntitySet="tblPost" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblUserPo__PostI__48CFD27E" Association="Self.FK__tblUserPo__PostI__48CFD27E">
-            <End Role="tblPost" EntitySet="tblPost" />
-            <End Role="tblUserPosts" EntitySet="tblUserPosts" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblUserPo__UserI__47DBAE45" Association="Self.FK__tblUserPo__UserI__47DBAE45">
-            <End Role="tblUser" EntitySet="tblUser" />
-            <End Role="tblUserPosts" EntitySet="tblUserPosts" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="MySocialNetworkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SocialNetworkDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="tblPost">
           <Key>
             <PropertyRef Name="PostID" />
@@ -228,7 +188,6 @@
           <Property Name="UserID" Type="Int32" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK__tblPost__UserID__398D8EEE" FromRole="tblPost" ToRole="tblUser" />
           <NavigationProperty Name="tblUsers" Relationship="Self.tblLikedPosts" FromRole="tblPost" ToRole="tblUser" />
-          <NavigationProperty Name="tblUsers1" Relationship="Self.tblUserPosts" FromRole="tblPost" ToRole="tblUser" />
         </EntityType>
         <EntityType Name="tblUser">
           <Key>
@@ -238,6 +197,7 @@
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
           <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -248,7 +208,6 @@
           <NavigationProperty Name="tblUser11" Relationship="Self.tblFriends" FromRole="tblUser" ToRole="tblUser1" />
           <NavigationProperty Name="tblUsers1" Relationship="Self.tblFriends" FromRole="tblUser1" ToRole="tblUser" />
           <NavigationProperty Name="tblPosts1" Relationship="Self.tblLikedPosts" FromRole="tblUser" ToRole="tblPost" />
-          <NavigationProperty Name="tblPosts2" Relationship="Self.tblUserPosts" FromRole="tblUser" ToRole="tblPost" />
         </EntityType>
         <Association Name="FK__tblPost__UserID__398D8EEE">
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
@@ -274,11 +233,7 @@
           <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
           <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
         </Association>
-        <Association Name="tblUserPosts">
-          <End Role="tblPost" Type="Self.tblPost" Multiplicity="*" />
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="MySocialNetworkEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SocialNetworkDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblPosts" EntityType="Self.tblPost" />
           <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
           <AssociationSet Name="FK__tblPost__UserID__398D8EEE" Association="Self.FK__tblPost__UserID__398D8EEE">
@@ -297,19 +252,15 @@
             <End Role="tblPost" EntitySet="tblPosts" />
             <End Role="tblUser" EntitySet="tblUsers" />
           </AssociationSet>
-          <AssociationSet Name="tblUserPosts" Association="Self.tblUserPosts">
-            <End Role="tblPost" EntitySet="tblPosts" />
-            <End Role="tblUser" EntitySet="tblUsers" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MySocialNetworkModelStoreContainer" CdmEntityContainer="MySocialNetworkEntities">
+        <EntityContainerMapping StorageEntityContainer="SocialNetworkDbModelStoreContainer" CdmEntityContainer="SocialNetworkDbEntities">
           <EntitySetMapping Name="tblPosts">
-            <EntityTypeMapping TypeName="MySocialNetworkModel.tblPost">
+            <EntityTypeMapping TypeName="SocialNetworkDbModel.tblPost">
               <MappingFragment StoreEntitySet="tblPost">
                 <ScalarProperty Name="PostID" ColumnName="PostID" />
                 <ScalarProperty Name="DateOfPost" ColumnName="DateOfPost" />
@@ -320,12 +271,13 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblUsers">
-            <EntityTypeMapping TypeName="MySocialNetworkModel.tblUser">
+            <EntityTypeMapping TypeName="SocialNetworkDbModel.tblUser">
               <MappingFragment StoreEntitySet="tblUser">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -333,7 +285,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="tblFriendRequests" TypeName="MySocialNetworkModel.tblFriendRequests" StoreEntitySet="tblFriendRequests">
+          <AssociationSetMapping Name="tblFriendRequests" TypeName="SocialNetworkDbModel.tblFriendRequests" StoreEntitySet="tblFriendRequests">
             <EndProperty Name="tblUser">
               <ScalarProperty Name="UserID" ColumnName="RecieveUserId" />
             </EndProperty>
@@ -341,7 +293,7 @@
               <ScalarProperty Name="UserID" ColumnName="SendUserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="tblFriends" TypeName="MySocialNetworkModel.tblFriends" StoreEntitySet="tblFriends">
+          <AssociationSetMapping Name="tblFriends" TypeName="SocialNetworkDbModel.tblFriends" StoreEntitySet="tblFriends">
             <EndProperty Name="tblUser">
               <ScalarProperty Name="UserID" ColumnName="FirstUserId" />
             </EndProperty>
@@ -349,15 +301,7 @@
               <ScalarProperty Name="UserID" ColumnName="SecondUserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="tblLikedPosts" TypeName="MySocialNetworkModel.tblLikedPosts" StoreEntitySet="tblLikedPosts">
-            <EndProperty Name="tblPost">
-              <ScalarProperty Name="PostID" ColumnName="PostId" />
-            </EndProperty>
-            <EndProperty Name="tblUser">
-              <ScalarProperty Name="UserID" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="tblUserPosts" TypeName="MySocialNetworkModel.tblUserPosts" StoreEntitySet="tblUserPosts">
+          <AssociationSetMapping Name="tblLikedPosts" TypeName="SocialNetworkDbModel.tblLikedPosts" StoreEntitySet="tblLikedPosts">
             <EndProperty Name="tblPost">
               <ScalarProperty Name="PostID" ColumnName="PostId" />
             </EndProperty>

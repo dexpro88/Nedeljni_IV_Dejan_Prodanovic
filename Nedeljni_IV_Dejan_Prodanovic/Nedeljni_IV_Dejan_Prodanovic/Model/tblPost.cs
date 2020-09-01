@@ -18,7 +18,6 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Model
         public tblPost()
         {
             this.tblUsers = new HashSet<tblUser>();
-            this.tblUsers1 = new HashSet<tblUser>();
         }
     
         public int PostID { get; set; }
@@ -30,7 +29,5 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Model
         public virtual tblUser tblUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblUser> tblUsers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblUser> tblUsers1 { get; set; }
     }
 }
