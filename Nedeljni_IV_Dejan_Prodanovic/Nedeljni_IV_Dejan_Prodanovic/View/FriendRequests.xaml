@@ -1,13 +1,13 @@
-﻿<Window x:Class="Nedeljni_IV_Dejan_Prodanovic.View.Users"
+﻿<Window x:Class="Nedeljni_IV_Dejan_Prodanovic.View.FriendRequests"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nedeljni_IV_Dejan_Prodanovic.View"
         mc:Ignorable="d"
-        Title="Users"
-        Height="400"
-        Width="600"
+        Title="FriendRequests"
+        Height="600"
+        Width="900"
         Background="LightBlue">
     <Window.Resources>
         <Style TargetType="Button">
@@ -36,11 +36,10 @@
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal">
             <Label FontSize="18"
-                   Content="Users: "
+                   Content="Friend Requests: "
                    VerticalAlignment="Center"
                    Foreground="Black" />
         </StackPanel>
-    
         <DataGrid Grid.Row="1"
                   Name="DataGridResults"
                   ItemsSource="{Binding UserList, UpdateSourceTrigger=PropertyChanged}"
@@ -74,7 +73,18 @@
                                     Height="20"
                                     Command="{Binding Path=DataContext.SendRequest, RelativeSource= {RelativeSource FindAncestor,
                                        AncestorType={x:Type DataGrid}},UpdateSourceTrigger=PropertyChanged}"
-                                    Content="Send Request" />
+                                    Content="Accept" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="100"
+                                    Height="20"
+                                    Command="{Binding Path=DataContext.SendRequest, RelativeSource= {RelativeSource FindAncestor,
+                                       AncestorType={x:Type DataGrid}},UpdateSourceTrigger=PropertyChanged}"
+                                    Content="Refuse" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -83,8 +93,6 @@
         <StackPanel Grid.Row="4"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
-            
-            
             <Button Command="{Binding Close}"
                     Content="Close" />
         </StackPanel>

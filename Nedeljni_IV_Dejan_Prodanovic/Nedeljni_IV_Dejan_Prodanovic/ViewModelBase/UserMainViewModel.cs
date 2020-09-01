@@ -65,7 +65,38 @@ namespace Nedeljni_IV_Dejan_Prodanovic.ViewModelBase
         {
             return true;
         }
+        private ICommand showRequests;
+        public ICommand ShowRequests
+        {
+            get
+            {
+                if (showRequests == null)
+                {
+                    showRequests = new RelayCommand(param => ShowRequestsExecute(),
+                        param => CanShowRequestsExecute());
+                }
+                return showRequests;
+            }
+        }
 
+        private void ShowRequestsExecute()
+        {
+            try
+            {
+                FriendRequests requests = new FriendRequests(User);
+                requests.ShowDialog();
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private bool CanShowRequestsExecute()
+        {
+            return true;
+        }
         private ICommand logout;
         public ICommand Logout
         {

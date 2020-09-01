@@ -41,6 +41,38 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Service
             }
         }
 
+        public void SendRequest(tblUser sendUser, tblUser recieveUser)
+        {
+            try
+            {
+                using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
+                {
+
+                    tblUser sendUserInDb = (from u in context.tblUsers
+                                          where u.UserID == sendUser.UserID
+                                          select u).First();
+
+                    tblUser recieveUserInDb = (from u in context.tblUsers
+                                            where u.UserID == recieveUser.UserID
+                                            select u).First();
+
+                    recieveUserInDb.tblUsers.Add(sendUserInDb);
+                    //recieveUserInDb.tblUsers.Add(sendUserInDb);
+
+
+                    context.SaveChanges();
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+
+            }
+        }
+
         public tblUser GetUserByUserName(string username)
         {
             try

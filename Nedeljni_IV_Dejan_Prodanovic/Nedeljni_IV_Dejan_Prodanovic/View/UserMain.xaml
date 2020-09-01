@@ -56,12 +56,12 @@
                     VerticalAlignment="Center">
             <Button Command="{Binding Profile}"
                     Content="Profile" />
-            <Button Command="{Binding EditProfile}"
+            <Button Command="{Binding ShowRequests}"
                     Content="Friend requests" />
             <Button Command="{Binding ShowFriends}"
                     Content="Friends" />
             <Button Command="{Binding ShowUsers}"
-                    Content="All Users (not friends)" />
+                    Content="Find friends" />
             <Button Command="{Binding Logout}"
                     Content="Logout" />
             <Button Command="{Binding Close}"

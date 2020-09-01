@@ -12,34 +12,31 @@ using System.Windows.Input;
 
 namespace Nedeljni_IV_Dejan_Prodanovic.ViewModelBase
 {
-    class UsersViewModel:ViewModelBase
+    class FriendRequestsViewModel:ViewModelBase
     {
-        Users view;
+        FriendRequests view;
         IUserService userService;
 
-        public UsersViewModel(Users usersView, tblUser userLogedIn)
+        public FriendRequestsViewModel(FriendRequests friendRequests, tblUser userLogedIn)
         {
-            view = usersView;
+            view = friendRequests;
             User = userLogedIn;
             userService = new UserService();
 
             var listOfUsers = userService.GetUsers().Where(u => u.UserID != User.UserID).ToList();
-            UserList = new List<tblUser>();
+           
 
             using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
             {
-                tblUser userInDb = (from x in context.tblUsers
-                                    where x.UserID == User.UserID
-                                    select x).First();
-                var list = userInDb.tblUsers.Select(item => item.UserID).ToList();
-                foreach (var us in listOfUsers)
-                {
-                                     
-                    if (!list.Contains(us.UserID))
-                    {
-                        UserList.Add(us);
-                    }
-                }
+                 
+                    tblUser userInDb = (from x in context.tblUsers
+                                        where x.UserID == User.UserID
+                                        select x).First();
+
+                UserList = userInDb.tblUsers.ToList();
+
+
+
             }
 
             SelectedUser = UserList.FirstOrDefault();
@@ -135,8 +132,8 @@ namespace Nedeljni_IV_Dejan_Prodanovic.ViewModelBase
         {
             try
             {
-                MessageBox.Show("Friend request sent.");
-                userService.SendRequest(User, SelectedUser);
+                //MessageBox.Show("Poslao");
+                //userService.SendRequest(User, SelectedUser);
             }
             catch (Exception ex)
             {
@@ -147,22 +144,22 @@ namespace Nedeljni_IV_Dejan_Prodanovic.ViewModelBase
         {
             using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
             {
-                if (SelectedUser!=null)
+                if (SelectedUser != null)
                 {
                     tblUser userInDb = (from x in context.tblUsers
-                                        where x.UserID == SelectedUser.UserID
+                                        where x.UserID == User.UserID
                                         select x).First();
 
                     var list = userInDb.tblUsers.Select(item => item.UserID).ToList();
-                     
-                    if (list.Contains(User.UserID))
+
+                    if (list.Contains(SelectedUser.UserID))
                     {
                         return false;
                     }
                 }
 
             }
-           
+
             return true;
         }
     }
