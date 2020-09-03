@@ -244,5 +244,28 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Service
                 return null;
             }
         }
+
+        public tblUser GetUserById(int id)
+        {
+            try
+            {
+                using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
+                {
+
+
+                    tblUser user = (from x in context.tblUsers
+                                    where x.UserID == id
+
+                                    select x).First();
+
+                    return user;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
     }
 }

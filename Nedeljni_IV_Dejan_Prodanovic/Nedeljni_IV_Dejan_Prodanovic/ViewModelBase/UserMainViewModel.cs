@@ -1,5 +1,6 @@
 ﻿using Nedeljni_IV_Dejan_Prodanovic.Command;
 using Nedeljni_IV_Dejan_Prodanovic.Model;
+using Nedeljni_IV_Dejan_Prodanovic.Service;
 using Nedeljni_IV_Dejan_Prodanovic.View;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,16 @@ namespace Nedeljni_IV_Dejan_Prodanovic.ViewModelBase
     class UserMainViewModel:ViewModelBase
     {
         UserMain view;
+        IPostService postService;
+        IUserService userService;
         public UserMainViewModel(UserMain userView, tblUser userLogedIn)
         {
             view = userView;
             User = userLogedIn;
+            postService = new PostService();
+            userService = new UserService();
+            PostList = postService.GetPosts();
+            ListDto = ConvertListToDtoList(PostList);
         }
 
         private tblUser user;
@@ -33,6 +40,62 @@ namespace Nedeljni_IV_Dejan_Prodanovic.ViewModelBase
                 OnPropertyChanged("User");
             }
         }
+
+        private List<tblPost> postList;
+        public List<tblPost> PostList
+        {
+            get
+            {
+                return postList;
+            }
+            set
+            {
+                postList = value;
+                OnPropertyChanged("PostList");
+            }
+        }
+
+        private List<PostDto> listDto;
+        public List<PostDto> ListDto
+        {
+            get
+            {
+                return listDto;
+            }
+            set
+            {
+                listDto = value;
+                OnPropertyChanged("ListDto");
+            }
+        }
+        private ICommand addPost;
+        public ICommand AddPost
+        {
+            get
+            {
+                if (addPost == null)
+                {
+                    addPost = new RelayCommand(param => AddPostExecute());
+                }
+                return addPost;
+            }
+        }
+
+        private void AddPostExecute()
+        {
+            try
+            {
+                AddPost addPost = new AddPost(User);
+                addPost.ShowDialog();
+                PostList = postService.GetPosts();
+                ListDto = ConvertListToDtoList(PostList);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+      
         private ICommand showUsers;
         public ICommand ShowUsers
         {
@@ -189,6 +252,35 @@ namespace Nedeljni_IV_Dejan_Prodanovic.ViewModelBase
         private bool CanCloseExecute()
         {
             return true;
+        }
+
+        List<PostDto> ConvertListToDtoList(List<tblPost>postList)
+        {
+            List<PostDto> listDto = new List<PostDto>();
+
+            foreach (var post in postList)
+            {
+                listDto.Add(ConvertToDto(post));
+            }
+            return listDto;
+        }
+
+        PostDto ConvertToDto(tblPost post)
+        {
+            PostDto postDto = new PostDto();
+            postDto.PostID = post.PostID;
+            postDto.DateOfPost = post.DateOfPost;
+            postDto.PostText = post.PostText;
+            postDto.NumberOfLikes = post.NumberOfLikes;
+
+            if (post.UserID!=null)
+            {
+                postDto.User = userService.GetUserById((int)post.UserID);
+            }
+            
+
+            return postDto;
+
         }
     }
 }

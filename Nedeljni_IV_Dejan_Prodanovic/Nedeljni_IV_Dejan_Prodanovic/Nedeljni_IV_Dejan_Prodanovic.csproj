@@ -85,17 +85,24 @@
     <Compile Include="Model\tblUser.cs">
       <DependentUpon>SocNetworkDataBaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Service\IPostService.cs" />
     <Compile Include="Service\IUserService.cs" />
+    <Compile Include="Service\PostService.cs" />
     <Compile Include="Service\UserService.cs" />
     <Compile Include="Validation\EncryptionHelper.cs" />
     <Compile Include="Validation\ValidationClass.cs" />
+    <Compile Include="ViewModelBase\AddPostViewModel.cs" />
     <Compile Include="ViewModelBase\FriendRequestsViewModel.cs" />
     <Compile Include="ViewModelBase\FriendsViewModel.cs" />
     <Compile Include="ViewModelBase\LoginViewModel.cs" />
+    <Compile Include="ViewModelBase\PostDto.cs" />
     <Compile Include="ViewModelBase\RegisterViewModel.cs" />
     <Compile Include="ViewModelBase\UserMainViewModel.cs" />
     <Compile Include="ViewModelBase\UsersViewModel.cs" />
     <Compile Include="ViewModelBase\ViewModelBase.cs" />
+    <Compile Include="View\AddPost.xaml.cs">
+      <DependentUpon>AddPost.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FriendRequests.xaml.cs">
       <DependentUpon>FriendRequests.xaml</DependentUpon>
     </Compile>
@@ -127,6 +134,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\AddPost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\FriendRequests.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

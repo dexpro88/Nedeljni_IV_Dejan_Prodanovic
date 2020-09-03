@@ -41,9 +41,9 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="40" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="960" />
@@ -67,5 +67,47 @@
             <Button Command="{Binding Close}"
                     Content="Close" />
         </StackPanel>
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
+                    Orientation="Horizontal">
+            <Label FontSize="18"
+                   Content="Posts: "
+                   VerticalAlignment="Center"
+                   Foreground="Black" />
+        </StackPanel>
+        <StackPanel Grid.Row="3"
+                    Grid.Column="0"
+                    Orientation="Horizontal">
+            <Button Background="DarkBlue" 
+                    Height="30"
+                    Width="80"
+                    Command="{Binding AddPost}"
+                    Content="New Post" />
+        </StackPanel>
+        <DataGrid Grid.Row="2"
+                  Grid.Column="0"
+                  Name="DataGridResults"
+                  ItemsSource="{Binding ListDto, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedUser,UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="True"
+                  HeadersVisibility="Column"
+                  AutoGenerateColumns="False"
+                  HorizontalGridLinesBrush="Black"
+                  BorderBrush="Black"
+                  Foreground="Black"
+                  FontWeight="Bold">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="DateOfPost"
+                                    Binding="{Binding DateOfPost, StringFormat='{}{0:dd/MM/yyyy}'}" />
+                <DataGridTextColumn Header="PostText"
+                                    Binding="{Binding PostText}" />
+                <DataGridTextColumn Header="NumberOfLikes"
+                                    Binding="{Binding NumberOfLikes}" />
+                <DataGridTextColumn Header="User"
+                                    Binding="{Binding User.Username}" />
+                 
+            
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

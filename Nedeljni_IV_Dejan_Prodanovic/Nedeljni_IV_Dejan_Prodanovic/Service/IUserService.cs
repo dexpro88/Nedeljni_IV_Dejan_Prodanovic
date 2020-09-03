@@ -14,6 +14,7 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Service
         tblUser AddUser(tblUser user);
         tblUser GetUserByUserNameAndPassword(string username, string password);
         tblUser GetUserByUserName(string username);
+        tblUser GetUserById(int id);
         //tblUser GetUserByJMBG(string JMBG);
         //void DeleteUser(int UserId);
         void SendRequest(tblUser sendUser, tblUser recieveUser);
