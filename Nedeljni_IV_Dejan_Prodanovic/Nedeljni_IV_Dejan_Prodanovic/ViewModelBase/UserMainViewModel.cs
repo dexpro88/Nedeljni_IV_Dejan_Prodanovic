@@ -161,8 +161,8 @@ namespace Nedeljni_IV_Dejan_Prodanovic.ViewModelBase
             {
                 if (showFriends == null)
                 {
-                    showFriends = new RelayCommand(param => ShowFriendsExecute(),
-                        param => CanShowFriendsExecute());
+                    showFriends = new RelayCommand(param => ShowFriendsExecute()
+                        );
                 }
                 return showFriends;
             }
@@ -182,9 +182,35 @@ namespace Nedeljni_IV_Dejan_Prodanovic.ViewModelBase
                 MessageBox.Show(ex.ToString());
             }
         }
-        private bool CanShowFriendsExecute()
+        
+
+        private ICommand myProfile;
+        public ICommand MyProfile
         {
-            return true;
+            get
+            {
+                if (myProfile == null)
+                {
+                    myProfile = new RelayCommand(param => MyProfileExecute()
+                        );
+                }
+                return myProfile;
+            }
+        }
+
+        private void MyProfileExecute()
+        {
+            try
+            {
+                Profile profile = new Profile(User);
+                profile.ShowDialog();
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
         private ICommand showRequests;
         public ICommand ShowRequests

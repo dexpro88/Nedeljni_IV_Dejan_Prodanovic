@@ -60,8 +60,12 @@
                     Content="Friend requests" />
             <Button Command="{Binding ShowFriends}"
                     Content="Friends" />
+            
             <Button Command="{Binding ShowUsers}"
                     Content="Find friends" />
+            
+            <Button Command="{Binding MyProfile}"
+                    Content="My profile" />
             <Button Command="{Binding Logout}"
                     Content="Logout" />
             <Button Command="{Binding Close}"

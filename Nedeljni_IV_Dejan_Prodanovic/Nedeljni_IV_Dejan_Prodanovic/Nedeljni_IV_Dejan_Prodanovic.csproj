@@ -96,6 +96,7 @@
     <Compile Include="ViewModelBase\FriendsViewModel.cs" />
     <Compile Include="ViewModelBase\LoginViewModel.cs" />
     <Compile Include="ViewModelBase\PostDto.cs" />
+    <Compile Include="ViewModelBase\ProfileViewModel.cs" />
     <Compile Include="ViewModelBase\RegisterViewModel.cs" />
     <Compile Include="ViewModelBase\UserMainViewModel.cs" />
     <Compile Include="ViewModelBase\UsersViewModel.cs" />
@@ -111,6 +112,9 @@
     </Compile>
     <Compile Include="View\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Profile.xaml.cs">
+      <DependentUpon>Profile.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Register.xaml.cs">
       <DependentUpon>Register.xaml</DependentUpon>
@@ -147,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Profile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -33,6 +33,8 @@ namespace Nedeljni_IV_Dejan_Prodanovic.ViewModelBase
                                     where x.UserID == User.UserID
                                     select x).First();
                 var list = userInDb.tblUsers.Select(item => item.UserID).ToList();
+
+                MessageBox.Show(list.Count.ToString());
                 foreach (var us in listOfUsers)
                 {
                                      
