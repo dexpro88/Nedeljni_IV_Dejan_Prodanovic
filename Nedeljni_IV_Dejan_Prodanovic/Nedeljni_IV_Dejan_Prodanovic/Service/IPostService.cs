@@ -11,5 +11,8 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Service
     {
         tblPost AddPost(tblPost post);
         List<tblPost> GetPosts();
+        tblPost GetPostById(int id);
+        void LikePost(tblPost post,tblUser user);
+        List<tblUser> UsersThatLikedPost(int id);
     }
 }

@@ -36,6 +36,29 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Service
             }
         }
 
+        public tblPost GetPostById(int id)
+        {
+            try
+            {
+                using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
+                {
+
+
+                    tblPost post = (from x in context.tblPosts
+                                    where x.PostID == id
+
+                                    select x).First();
+
+                    return post;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
+
         public List<tblPost> GetPosts()
         {
             try
@@ -47,6 +70,71 @@ namespace Nedeljni_IV_Dejan_Prodanovic.Service
 
 
                     return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
+
+        public void LikePost(tblPost post, tblUser user)
+        {
+            try
+            {
+                using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
+                {
+
+
+                    tblPost postInDB = (from x in context.tblPosts
+                                    where x.PostID==post.PostID
+
+                                    select x).First();
+
+                    tblUser userInDb = (from x in context.tblUsers
+                                        where x.UserID == user.UserID
+
+                                        select x).First();
+
+                    if (postInDB.NumberOfLikes==null)
+                    {
+                        postInDB.NumberOfLikes = 1;
+                    }
+                    else
+                    {
+                        postInDB.NumberOfLikes += 1;
+                    }
+                    postInDB.tblUsers.Add(userInDb);
+
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                 
+            }
+        }
+
+        public List<tblUser> UsersThatLikedPost(int id)
+        {
+            try
+            {
+                using (SocialNetworkDbEntities context = new SocialNetworkDbEntities())
+                {
+
+
+                    tblPost postInDB = (from x in context.tblPosts
+                                        where x.PostID == id
+
+                                        select x).First();
+
+
+
+
+
+                    return postInDB.tblUsers.ToList();
                 }
             }
             catch (Exception ex)

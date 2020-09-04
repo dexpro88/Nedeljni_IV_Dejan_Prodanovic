@@ -84,11 +84,12 @@
                     Command="{Binding AddPost}"
                     Content="New Post" />
         </StackPanel>
-        <DataGrid Grid.Row="2"
+        <DataGrid  
+                  Grid.Row="2"
                   Grid.Column="0"
                   Name="DataGridResults"
                   ItemsSource="{Binding ListDto, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding SelectedUser,UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedPost,UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="True"
                   HeadersVisibility="Column"
                   AutoGenerateColumns="False"
@@ -105,8 +106,17 @@
                                     Binding="{Binding NumberOfLikes}" />
                 <DataGridTextColumn Header="User"
                                     Binding="{Binding User.Username}" />
-                 
-            
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="80"
+                                    Height="20"
+                                    Command="{Binding Path=DataContext.Like, RelativeSource= {RelativeSource FindAncestor,
+                                       AncestorType={x:Type DataGrid}},UpdateSourceTrigger=PropertyChanged}"
+                                    Content="Like" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
